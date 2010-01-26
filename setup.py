@@ -6,7 +6,7 @@ setup(
     version = "0.1.dev",
     author = "Eldarion",
     author_email = "development@eldarion.com",
-    description = "a reusable django badges application",
+    description = "a reusable Django badges application",
     long_description = open("README.rst").read(),
     license = "BSD",
     url = "http://github.com/eldarion/brabeion",
