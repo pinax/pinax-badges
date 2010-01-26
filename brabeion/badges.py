@@ -19,7 +19,7 @@ class BadgeCache(object):
         # We should probably duck-type this, but for now it's a decent sanity
         # check.
         assert issubclass(badge, Badge)
-        badge = Badge()
+        badge = badge()
         self._registry[badge.slug] = badge
         for event in badge.events:
             self._event_registry[event].append(badge)
