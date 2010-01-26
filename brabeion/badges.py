@@ -48,11 +48,6 @@ class Badge(object):
     
     def possibly_award(self, **state):
         assert "user" in state
-        if (not self.multiple and
-            BadgeAward.objects.filter(user=state["user"], slug=self.slug).exists()):
-            # if the user has this badge, and they can't get it more than once
-            # bail early
-            return
         if self.async:
             raise NotImplementedError("I haven't implemented async Badges yet")
 
