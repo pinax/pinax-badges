@@ -6,7 +6,8 @@ common ``Badge`` class and registering them with ``brabeion``.  For example if
 your site gave users points, and you wanted to award three ranks of badges
 based on how many points a user had your badge might look like this:
     
-    from brabeion.badges import Badge, BadgeAwarded, badges
+    from brabeion badges
+    from brabeion.base import Badge, BadgeAwarded
     
     
     class PointsBadge(Badge):
@@ -41,7 +42,7 @@ the name of the event, and whatever state these events might need and
 ``brabeion`` will handle the details of seeing what badges need to be awarded
 to the user::
     
-    from brabeion.badges import badges
+    from brabeion import badges
     
     def my_view(request):
         if request.method == "POST":
