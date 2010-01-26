@@ -64,3 +64,6 @@ class Badge(object):
         assert awarded < len(self.levels)
         BadgeAward.objects.create(user=state["user"], codename=self.name,
             level=awarded)
+
+
+badges = BadgeCache()
