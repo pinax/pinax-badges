@@ -20,11 +20,11 @@ class BadgeCache(object):
         # check.
         assert issubclass(badge, Badge)
         badge = Badge()
-        self._registry[badge.name] = name
+        self._registry[badge.name] = badge
         for event in badge.events:
             self._event_registry[event].append(badge)
     
-    def possibly_award_badge(event, **state):
+    def possibly_award_badge(self, event, **state):
         for badge in self._registry[event]:
             badge.possibly_award(**state)
 

@@ -12,4 +12,5 @@ class BadgeAwarded(models.Model):
     
     @property
     def badge(self):
-        return AwardedBadge(self.codename, self.level, user)
+        from brabeion.badges import AwardedBadge
+        return AwardedBadge(self.codename, self.level, self.user)
