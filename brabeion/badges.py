@@ -42,6 +42,9 @@ class BadgeDetail(object):
 class Badge(object):
     def __init__(self):
         assert not (self.multiple and len(self.levels) > 1)
+        for i, level in enumerate(self.levels):
+            if not isinstance(level, BadgeDetail):
+                self.levels[i] = BadgeDetail(level)
     
     def possibly_award(self, **state):
         assert "user" in state
@@ -64,6 +67,26 @@ class Badge(object):
         assert awarded < len(self.levels)
         BadgeAward.objects.create(user=state["user"], codename=self.name,
             level=awarded)
+
+
+class AwardedBadge(object):
+    def __init__(self, codename, level, user):
+        self.codename = codename
+        self.level = level
+        self.user = user
+        self._badge = badges._registry[codename]
+    
+    @property
+    def name(self):
+        return self._badge.levels[self.level].name
+    
+    @property
+    def description(self):
+        return self._badge.levels[self.level].description
+    
+    @property
+    def progress(self):
+        return self._badge.progress(self.user, self.level)
 
 
 badges = BadgeCache()

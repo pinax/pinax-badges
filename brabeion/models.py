@@ -9,3 +9,7 @@ class BadgeAwarded(models.Model):
     awarded_at = models.DateTimeField(default=datetime.now)
     codename = models.CharField(max_length=255)
     level = models.IntegerField()
+    
+    @property
+    def badge(self):
+        return AwardedBadge(self.codename, self.level, user)
