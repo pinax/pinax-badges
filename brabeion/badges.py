@@ -54,7 +54,7 @@ class Badge(object):
             # bail early
             return
         if self.async:
-            raise NotImplementedError("I haven't implemented async Badge's yet")
+            raise NotImplementedError("I haven't implemented async Badges yet")
 
         awarded = self.award(**state)
         if awarded is None:
