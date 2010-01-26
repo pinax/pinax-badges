@@ -13,7 +13,7 @@ based on how many points a user had your badge might look like this:
         slug = "points"
         levels = [
             "Bronze",
-            "Silve",
+            "Silver",
             "Gold",
         ]
         events = [
