@@ -49,7 +49,7 @@ class Badge(object):
     def possibly_award(self, **state):
         assert "user" in state
         if (not self.multiple and
-            BadgeAward.objects.filter(user=state["user"], codename=self.slug).exists()):
+            BadgeAward.objects.filter(user=state["user"], slug=self.slug).exists()):
             # if the user has this badge, and they can't get it more than once
             # bail early
             return
@@ -65,16 +65,19 @@ class Badge(object):
         # awarded levels are 1 indexed, for conveineince
         awarded = awarded.level - 1
         assert awarded < len(self.levels)
-        BadgeAward.objects.create(user=state["user"], codename=self.slug,
+        if (not self.multiple and
+            BadgeAward.objects.filter(user=state["user"], slug=self.slug, level=awarded)):
+            return
+        BadgeAward.objects.create(user=state["user"], slug=self.slug,
             level=awarded)
 
 
 class AwardedBadge(object):
-    def __init__(self, codename, level, user):
-        self.codename = codename
+    def __init__(self, slug, level, user):
+        self.slug = slug
         self.level = level
         self.user = user
-        self._badge = badges._registry[codename]
+        self._badge = badges._registry[slug]
     
     @property
     def name(self):
