@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 
 
-class BadgeAwarded(models.Model):
+class BadgeAward(models.Model):
     user = models.ForeignKey(User, related_name="badges_earned")
     awarded_at = models.DateTimeField(default=datetime.now)
     slug = models.CharField(max_length=255)
