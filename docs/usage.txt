@@ -2,7 +2,7 @@ Using ``brabeion``
 ==================
 
 ``brabeion`` works by allowing you to define your badges as subclasses of a
-common ``Badge`` class and reigstering them with ``brabeion``.  For example if
+common ``Badge`` class and registering them with ``brabeion``.  For example if
 your site gave users points, and you wanted to award three ranks of badges
 based on how many points a user had your badge might look like this:
     
@@ -36,7 +36,7 @@ based on how many points a user had your badge might look like this:
 
 Now that you have your ``PointsBadge`` class you need to be able to tell
 ``brabeion`` when to try to give it to a user.  To do this, any time a user
-*might* have recieved a badge just call ``badges.possibly_award_badge`` with
+*might* have received a badge just call ``badges.possibly_award_badge`` with
 the name of the event, and whatever state these events might need and
 ``brabeion`` will handle the details of seeing what badges need to be awarded
 to the user::
