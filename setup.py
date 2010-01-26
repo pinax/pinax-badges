@@ -3,11 +3,11 @@ from distutils.core import setup
 
 setup(
     name = "brabeion",
-    version = "0.1.dev",
+    version = "0.1.dev1",
     author = "Eldarion",
     author_email = "development@eldarion.com",
     description = "a reusable Django badges application",
-    long_description = open("README.rst").read(),
+    long_description = open("README").read(),
     license = "BSD",
     url = "http://github.com/eldarion/brabeion",
     packages = [
