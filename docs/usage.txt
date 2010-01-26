@@ -1,0 +1,51 @@
+Using ``brabeion``
+==================
+
+``brabeion`` works by allowing you to define your badges as subclasses of a
+common ``Badge`` class and reigstering them with ``brabeion``.  For example if
+your site gave users points, and you wanted to award three ranks of badges
+based on how many points a user had your badge might look like this:
+    
+    from brabeion.badges import Badge, BadgeAwarded, badges
+    
+    
+    class PointsBadge(Badge):
+        slug = "points"
+        levels = [
+            "Bronze",
+            "Silve",
+            "Gold",
+        ]
+        events = [
+            "points_awarded",
+        ]
+        multiple = False
+        
+        def award(self, **state):
+            user = state["user"]
+            points = user.get_profile().points
+            if points > 10000:
+                return BadgeAwarded(3)
+            elif points > 7500:
+                return BadgeAwarded(2)
+            elif points > 5000:
+                return BadgeAwarded(1)
+        
+        
+        badges.register(PointsBadge)
+
+Now that you have your ``PointsBadge`` class you need to be able to tell
+``brabeion`` when to try to give it to a user.  To do this, any time a user
+*might* have recieved a badge just call ``badges.possibly_award_badge`` with
+the name of the event, and whatever state these events might need and
+``brabeion`` will handle the details of seeing what badges need to be awarded
+to the user::
+    
+    from brabeion.badges import badges
+    
+    def my_view(request):
+        if request.method == "POST":
+            # do some things
+            request.user.get_profile().award_points(15)
+            badges.possibly_award_badge("points_awarded", user=request.user)
+        # more view
