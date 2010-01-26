@@ -5,6 +5,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+
 class BadgeAwarded(models.Model):
     user = models.ForeignKey(User, related_name="badges_earned")
     awarded_at = models.DateTimeField(default=datetime.now)

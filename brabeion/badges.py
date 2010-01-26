@@ -3,6 +3,7 @@ from collections import defaultdict
 from brabeion.models import BadgeAward
 
 
+
 class BadgeCache(object):
     """
     This is responsible for storing all badges that have been registered, as
@@ -33,6 +34,7 @@ class BadgeAwarded(object):
     def __init__(self, level=None):
         self.level = level
 
+
 class BadgeDetail(object):
     def __init__(self, name=None, description=None):
         self.name = name
@@ -50,7 +52,7 @@ class Badge(object):
         assert "user" in state
         if self.async:
             raise NotImplementedError("I haven't implemented async Badges yet")
-
+        
         awarded = self.award(**state)
         if awarded is None:
             return
