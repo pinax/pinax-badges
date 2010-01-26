@@ -20,7 +20,7 @@ class BadgeCache(object):
         # check.
         assert issubclass(badge, Badge)
         badge = Badge()
-        self._registry[badge.name] = badge
+        self._registry[badge.slug] = badge
         for event in badge.events:
             self._event_registry[event].append(badge)
     
@@ -49,7 +49,7 @@ class Badge(object):
     def possibly_award(self, **state):
         assert "user" in state
         if (not self.multiple and
-            BadgeAward.objects.filter(user=state["user"]).exists()):
+            BadgeAward.objects.filter(user=state["user"], codename=self.slug).exists()):
             # if the user has this badge, and they can't get it more than once
             # bail early
             return
@@ -65,7 +65,7 @@ class Badge(object):
         # awarded levels are 1 indexed, for conveineince
         awarded = awarded.level - 1
         assert awarded < len(self.levels)
-        BadgeAward.objects.create(user=state["user"], codename=self.name,
+        BadgeAward.objects.create(user=state["user"], codename=self.slug,
             level=awarded)
 
 
