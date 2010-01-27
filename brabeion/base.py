@@ -13,6 +13,8 @@ class BadgeDetail(object):
 
 
 class Badge(object):
+    async = False
+    
     def __init__(self):
         assert not (self.multiple and len(self.levels) > 1)
         for i, level in enumerate(self.levels):

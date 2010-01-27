@@ -37,4 +37,17 @@ class BadgesTests(TestCase):
         u = User.objects.create_user("Lars Bak", "lars@hotspot.com", "x864lyfe")
         PlayerStat.objects.create(user=u)
         badges.possibly_award_badge("points_awarded", user=u)
-        self.assertEqual(u.badges.all(), 0)
+        self.assertEqual(u.badges_earned.count(), 0)
+
+        u.stats.points += 5001
+        u.stats.save()
+        badges.possibly_award_badge("points_awarded", user=u)
+        self.assertEqual(u.badges_earned.count(), 1)
+        self.assertEqual(u.badges_earned.all()[0].badge.name, "Bronze")
+
+        badges.possibly_award_badge("points_awarded", user=u)
+        self.assertEqual(u.badges_earned.count(), 1)
+
+        u.stats.points += 2500
+        badges.possibly_award_badge("points_awarded", user=u)
+        self.assertEqual(u.badges_earned.count(), 2)
