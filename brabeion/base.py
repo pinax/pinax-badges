@@ -1,4 +1,5 @@
 from brabeion.models import BadgeAward
+from brabeion.signals import badge_awarded
 
 
 class BadgeAwarded(object):
@@ -38,5 +39,6 @@ class Badge(object):
         if (not self.multiple and
             BadgeAward.objects.filter(user=state["user"], slug=self.slug, level=awarded)):
             return
-        BadgeAward.objects.create(user=state["user"], slug=self.slug,
+        badge = BadgeAward.objects.create(user=state["user"], slug=self.slug,
             level=awarded)
+        badge_awarded.send(sender=self, badge=badge)
