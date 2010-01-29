@@ -50,3 +50,8 @@ to the user::
             request.user.get_profile().award_points(15)
             badges.possibly_award_badge("points_awarded", user=request.user)
         # more view
+
+
+By default badges will be awarded at the current time, if you need to overide
+the award time of the badge you can pass a ``force_timestamp`` keyword argument
+to ``possible_award_badge()``.

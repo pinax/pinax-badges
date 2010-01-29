@@ -24,6 +24,7 @@ class Badge(object):
     
     def possibly_award(self, **state):
         assert "user" in state
+        force_timestamp = state.pop("force_timestamp")
         if self.async:
             raise NotImplementedError("I haven't implemented async Badges yet")
         
@@ -39,6 +40,9 @@ class Badge(object):
         if (not self.multiple and
             BadgeAward.objects.filter(user=state["user"], slug=self.slug, level=awarded)):
             return
+        extra_kwargs = {}
+        if force_timestamp:
+            extra_kwargs["awarded_at"] = force_timestamp
         badge = BadgeAward.objects.create(user=state["user"], slug=self.slug,
-            level=awarded)
+            level=awarded, **extra_kwargs)
         badge_awarded.send(sender=self, badge=badge)
