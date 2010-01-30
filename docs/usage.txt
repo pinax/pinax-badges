@@ -26,14 +26,16 @@ based on how many points a user had your badge might look like this:
             user = state["user"]
             points = user.get_profile().points
             if points > 10000:
-                return BadgeAwarded(3)
+                return BadgeAwarded(level=3)
             elif points > 7500:
-                return BadgeAwarded(2)
+                return BadgeAwarded(level=2)
             elif points > 5000:
-                return BadgeAwarded(1)
+                return BadgeAwarded(level=1)
         
         
         badges.register(PointsBadge)
+
+The one important thing to note is that ``BadgeAwarded.level`` is 1-indexed.
 
 Now that you have your ``PointsBadge`` class you need to be able to tell
 ``brabeion`` when to try to give it to a user.  To do this, any time a user
