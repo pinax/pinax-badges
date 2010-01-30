@@ -3,8 +3,9 @@ from brabeion.signals import badge_awarded
 
 
 class BadgeAwarded(object):
-    def __init__(self, level=None):
+    def __init__(self, level=None, user=None):
         self.level = level
+        self.user = user
 
 
 class BadgeDetail(object):
@@ -24,6 +25,7 @@ class Badge(object):
     
     def possibly_award(self, **state):
         assert "user" in state
+        user = state["user"]
         force_timestamp = state.pop("force_timestamp", None)
         if self.async:
             raise NotImplementedError("I haven't implemented async Badges yet")
@@ -31,6 +33,8 @@ class Badge(object):
         awarded = self.award(**state)
         if awarded is None:
             return
+        if awarded.user is not None:
+            user = awarded.user
         if awarded.level is None:
             assert len(self.levels) == 1
             awarded.level = 1
@@ -38,11 +42,11 @@ class Badge(object):
         awarded = awarded.level - 1
         assert awarded < len(self.levels)
         if (not self.multiple and
-            BadgeAward.objects.filter(user=state["user"], slug=self.slug, level=awarded)):
+            BadgeAward.objects.filter(user=user, slug=self.slug, level=awarded)):
             return
         extra_kwargs = {}
         if force_timestamp is not None:
             extra_kwargs["awarded_at"] = force_timestamp
-        badge = BadgeAward.objects.create(user=state["user"], slug=self.slug,
+        badge = BadgeAward.objects.create(user=user, slug=self.slug,
             level=awarded, **extra_kwargs)
         badge_awarded.send(sender=self, badge=badge)
