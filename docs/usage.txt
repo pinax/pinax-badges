@@ -57,3 +57,32 @@ to the user::
 By default badges will be awarded at the current time, if you need to overide
 the award time of the badge you can pass a ``force_timestamp`` keyword argument
 to ``possible_award_badge()``.
+
+Asynchronous Badges
+===================
+
+If your ``Badge.award()`` method takes a long time to compute it often makes
+sense to not actually call it during the request/response cycle, as this would
+slow it down, and ``Badges`` rarely need to be awarded immediately.  To
+facilitate this ``brabeion`` provides an ``async`` option ``Badges``.  When set
+to true, instead of calculating whether the user should be awarded a badge
+during the request/response cycle, the ``Badge`` being awarded will be queued
+for later using ```celery`` <http://github.com/ask/celery>`_.  Because this
+processing won't occur until later, if you need to provide additional state
+(perhaps because the state that your ``Badge.award()`` method relies upon is
+mutable) on asynchronous ``Badges`` you can define a ``freeze()`` method to add
+additional state:
+
+    class AddictBadge(Badge):
+        # stuff
+        async = True
+        
+        def freeze(self, **state):
+            state["current_day"] = datetime.today()
+
+In this example badge the user will be awarded it when they've visited the site
+every day for a month, this is expensive to calculate so it will be done
+outside the request/response cycle.  However, what happens if they visit the
+site right before midnight, and then the ``award()`` method isn't actually
+called until the next day?  Using the freeze method you can provide additional
+state for use with asynchronous badges.

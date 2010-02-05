@@ -1,5 +1,6 @@
 from brabeion.models import BadgeAward
 from brabeion.signals import badge_awarded
+from brabeion.tasks import AsyncBadgeAward
 
 
 class BadgeAwarded(object):
@@ -24,12 +25,23 @@ class Badge(object):
                 self.levels[i] = BadgeDetail(level)
     
     def possibly_award(self, **state):
+        """
+        Will see if the user should be awarded a badge.  If this badge is
+        asynchronous it just queues up the badge awarding.
+        """
         assert "user" in state
+        if self.async:
+            state = self.freeze(**state)
+            AsyncBadgeAward.delay(self, state)
+            return
+        self.actually_possibly_award(**state)
+    
+    def actually_possibly_award(self, **state):
+        """
+        Does the actual work of possibly awarding a badge.
+        """
         user = state["user"]
         force_timestamp = state.pop("force_timestamp", None)
-        if self.async:
-            raise NotImplementedError("I haven't implemented async Badges yet")
-        
         awarded = self.award(**state)
         if awarded is None:
             return
@@ -50,3 +62,6 @@ class Badge(object):
         badge = BadgeAward.objects.create(user=user, slug=self.slug,
             level=awarded, **extra_kwargs)
         badge_awarded.send(sender=self, badge=badge)
+    
+    def freeze(self, **state):
+        return state
