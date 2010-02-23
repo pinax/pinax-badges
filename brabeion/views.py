@@ -33,7 +33,7 @@ def badge_list(request):
     for badge_group in badges_dict.values():
         badge_group.sort(key=lambda o: o["level"])
     
-    return render_to_response("badges/badges.html", {
+    return render_to_response("brabeion/badges.html", {
         "badges": sorted(badges_dict.items()),
     }, context_instance=RequestContext(request))
 
@@ -50,7 +50,7 @@ def badge_detail(request, slug, level):
     badge_count = badge_awards.count()
     latest_awards = badge_awards[:50]
     
-    return render_to_response("badges/badge_detail.html", {
+    return render_to_response("brabeion/badge_detail.html", {
         "badge": badge,
         "badge_count": badge_count,
         "latest_awards": latest_awards,
