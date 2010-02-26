@@ -79,6 +79,7 @@ additional state:
         
         def freeze(self, **state):
             state["current_day"] = datetime.today()
+            return state
 
 In this example badge the user will be awarded it when they've visited the site
 every day for a month, this is expensive to calculate so it will be done
