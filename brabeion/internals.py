@@ -1,5 +1,3 @@
-from collections import defaultdict
-
 from django.contrib.auth.models import User
 
 from brabeion.base import Badge
@@ -15,7 +13,7 @@ class BadgeCache(object):
     fault when things break, and you get to pick up all the pieces.
     """
     def __init__(self):
-        self._event_registry = defaultdict(list)
+        self._event_registry = {}
         self._registry = {}
     
     def register(self, badge):
@@ -25,7 +23,7 @@ class BadgeCache(object):
         badge = badge()
         self._registry[badge.slug] = badge
         for event in badge.events:
-            self._event_registry[event].append(badge)
+            self._event_registry.setdefault(event, []).append(badge)
     
     def possibly_award_badge(self, event, **state):
         for badge in self._event_registry[event]:
