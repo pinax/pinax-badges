@@ -1,5 +1,3 @@
-from contextlib import contextmanager
-
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import connection
@@ -37,12 +35,11 @@ badges.register(PointsBadge)
 
 
 class BaseTestCase(TestCase):
-    @contextmanager
-    def assert_num_queries(self, n):
+    def assert_num_queries(self, n, func):
         current_debug = settings.DEBUG
         settings.DEBUG = True
         current = len(connection.queries)
-        yield
+        func()
         self.assertEqual(current+n, len(connection.queries), connection.queries[current:])
         settings.DEBUG = current_debug
 
@@ -72,5 +69,4 @@ class BadgesTests(BaseTestCase):
         badges.possibly_award_badge("points_awarded", user=u)
         self.assertEqual(u.badges_earned.count(), 1)
         
-        with self.assert_num_queries(1):
-            u.badges_earned.get().badge
+        self.assert_num_queries(1, lambda: u.badges_earned.get().badge)
