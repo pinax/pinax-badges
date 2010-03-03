@@ -1,5 +1,7 @@
 from collections import defaultdict
 
+from django.contrib.auth.models import User
+
 from brabeion.base import Badge
 
 
@@ -30,11 +32,17 @@ class BadgeCache(object):
 
 
 class AwardedBadge(object):
-    def __init__(self, slug, level, user):
+    def __init__(self, slug, level, user_id):
         self.slug = slug
         self.level = level
-        self.user = user
+        self._user_id = user_id
         self._badge = badges._registry[slug]
+    
+    @property
+    def user(self):
+        if not hasattr(self, "_user"):
+            self._user = User.objects.get(pk=self._user_id)
+        return self._user
     
     @property
     def name(self):

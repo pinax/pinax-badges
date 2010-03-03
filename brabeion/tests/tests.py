@@ -1,4 +1,8 @@
+from contextlib import contextmanager
+
+from django.conf import settings
 from django.contrib.auth.models import User
+from django.db import connection
 from django.test import TestCase
 
 from brabeion import badges
@@ -32,7 +36,17 @@ class PointsBadge(Badge):
 badges.register(PointsBadge)
 
 
-class BadgesTests(TestCase):
+class BaseTestCase(TestCase):
+    @contextmanager
+    def assert_num_queries(self, n):
+        current_debug = settings.DEBUG
+        settings.DEBUG = True
+        current = len(connection.queries)
+        yield
+        self.assertEqual(current+n, len(connection.queries), connection.queries[current:])
+        settings.DEBUG = current_debug
+
+class BadgesTests(BaseTestCase):
     def test_award(self):
         u = User.objects.create_user("Lars Bak", "lars@hotspot.com", "x864lyfe")
         PlayerStat.objects.create(user=u)
@@ -51,3 +65,12 @@ class BadgesTests(TestCase):
         u.stats.points += 2500
         badges.possibly_award_badge("points_awarded", user=u)
         self.assertEqual(u.badges_earned.count(), 2)
+    
+    def test_lazy_user(self):
+        u = User.objects.create_user("Lars Bak", "lars@hotspot.com", "x864lyfe")
+        PlayerStat.objects.create(user=u, points=5001)
+        badges.possibly_award_badge("points_awarded", user=u)
+        self.assertEqual(u.badges_earned.count(), 1)
+        
+        with self.assert_num_queries(1):
+            u.badges_earned.get().badge
