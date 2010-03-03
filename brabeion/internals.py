@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from brabeion.base import Badge
 
 
+
 class BadgeCache(object):
     """
     This is responsible for storing all badges that have been registered, as
