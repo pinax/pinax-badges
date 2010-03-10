@@ -33,7 +33,7 @@ based on how many points a user had your badge might look like this:
                 return BadgeAwarded(level=1)
         
         
-        badges.register(PointsBadge)
+    badges.register(PointsBadge)
 
 The one important thing to note is that ``BadgeAwarded.level`` is 1-indexed.
 
