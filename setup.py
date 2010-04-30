@@ -12,7 +12,7 @@ setup(
     url = "http://github.com/eldarion/brabeion",
     packages = [
         "brabeion",
-        "breaion.templatetags",
+        "brabeion.templatetags",
     ],
     classifiers = [
         "Development Status :: 3 - Alpha",
