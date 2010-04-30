@@ -43,3 +43,36 @@ def badge_count(parser, token):
         {% badge_count user as badges %}
     """
     return BadgeCountNode.handle_token(parser, token)
+
+
+class BadgesForUserNode(template.Node):
+    @classmethod
+    def handle_token(cls, parser, token):
+        bits = token.split_contents()
+        if len(bits) != 4:
+            raise template.TemplateSyntaxError("%r takes exactly 3 arguments." % bits[0])
+        if bits[2] != "as":
+            raise template.TemplateSyntaxError("The 2nd argument to %r should "
+                "be 'as'" % bits[0])
+        return cls(bits[1], bits[3])
+    
+    def __init__(self, user, context_var):
+        self.user = template.Variable(user)
+        self.context_var = context_var
+    
+    def render(self, context):
+        user = self.user.resolve(context)
+        context[self.context_var] = BadgeAward.objects.filter(
+            user=user
+        ).order_by("-awarded_at")
+        return ""
+        
+
+@register.tag
+def badges_for_user(parser, token):
+    """
+    Sets the badges for a given user to a context var.  Usage:
+        
+        {% badges_for_user user as badges %}
+    """
+    return BadgesForUserNode.handle_token(parser, token)
