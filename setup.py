@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
     name = "brabeion",
-    version = "0.1.dev5",
+    version = "0.1.dev9",
     author = "Eldarion",
     author_email = "development@eldarion.com",
     description = "a reusable Django badges application",
@@ -12,6 +12,7 @@ setup(
     url = "http://github.com/eldarion/brabeion",
     packages = [
         "brabeion",
+        "brabeion.templatetags",
     ],
     classifiers = [
         "Development Status :: 3 - Alpha",
