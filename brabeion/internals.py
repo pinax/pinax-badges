@@ -37,6 +37,9 @@ class AwardedBadge(object):
         self._user_id = user_id
         self._badge = badges._registry[slug]
     
+    def __getattr__(self, attr):
+        return getattr(self._badge, attr)
+    
     @property
     def user(self):
         if not hasattr(self, "_user"):
