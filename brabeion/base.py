@@ -4,9 +4,10 @@ from brabeion.signals import badge_awarded
 
 
 class BadgeAwarded(object):
-    def __init__(self, level=None, user=None):
+    def __init__(self, level=None, user=None, message=None):
         self.level = level
         self.user = user
+        self.message = message
 
 
 class BadgeDetail(object):
@@ -51,6 +52,7 @@ class Badge(object):
         if awarded.level is None:
             assert len(self.levels) == 1
             awarded.level = 1
+        message = awarded.message
         # awarded levels are 1 indexed, for conveineince
         awarded = awarded.level - 1
         assert awarded < len(self.levels)
@@ -63,6 +65,8 @@ class Badge(object):
         badge = BadgeAward.objects.create(user=user, slug=self.slug,
             level=awarded, **extra_kwargs)
         badge_awarded.send(sender=self, badge=badge)
+        if message is not None:
+            user.message_set.create(message=message)
     
     def freeze(self, **state):
         return state
