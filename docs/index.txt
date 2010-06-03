@@ -9,4 +9,5 @@ support for awarding badges to users in Django.
 
    usage
    templatetags
+   signals
 

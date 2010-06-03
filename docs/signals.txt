@@ -1,0 +1,13 @@
+Signals in ``brabeion``
+=======================
+
+``brabeion`` makes one signal available to developers, which lives at
+``brabeion.signals``.
+
+``badge_awarded``
+-----------------
+
+This signal is sent whenever a badge is awarded to a user.  It provides a
+single argument, ``badge``, which is an instance of
+``brabeion.models.BadgeAwarded``, and makes available  ``user``, ``badge``, and
+``awarded_at`` time attributes.
