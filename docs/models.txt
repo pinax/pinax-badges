@@ -1,0 +1,24 @@
+Models in ``brabeion``
+======================
+
+.. module:: brabeion.models
+
+.. class:: BadgeAwarded(models.Model)
+
+    .. attribute:: user
+        
+        The user who was awarded this badge.
+    
+    .. attribute:: awarded_at
+        
+        The ``datetime`` that this badge was awarded at.
+    
+    .. attribute:: slug
+        
+        The slug for the ``Badge`` this refers to.
+    
+    .. attribute:: badge
+        
+        An ``AwardedBadge`` object, which has the ``level``, ``name``, and
+        ``description`` properties for the level of the ``Badge`` that it
+        corropsonds to.
