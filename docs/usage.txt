@@ -93,7 +93,7 @@ to the user:
     def my_view(request):
         if request.method == "POST":
             # do some things
-            request.user.get_profile().award_points(15)
+            request.user.profile.award_points(15)
             badges.possibly_award_badge("points_awarded", user=request.user)
         # more view
 
