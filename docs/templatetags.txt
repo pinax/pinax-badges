@@ -1,7 +1,10 @@
 Templatetags in ``brabeion``
 ============================
 
-``brabeion`` offers a number of templatetags for your convenience.
+.. module:: brabeion.templatetags.brabeion_tags
+
+``brabeion`` offers a number of templatetags for your convenience, which are
+available in the ``brabeion_tags`` library.
 
 ``badge_count``
 ---------------
