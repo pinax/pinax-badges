@@ -22,8 +22,10 @@ To get the count as a template variable:
 ``badges_for_user``
 -------------------
 
-This tag gets all of a user's badges and makes them available in the template.
-They are ordered by when they were awarded, descending:
+This tag provides a ``QuerySet`` of all of a user's badges, ordered by when
+they were awarded, descending, and makes them available as a template variable.
+The ``QuerySet`` is composed of :class:`~brabeion.models.BadgeAwarded`
+instances.
 
 .. sourcecode:: html+django
     
