@@ -105,17 +105,23 @@ to ``possible_award_badge()``.
 Asynchronous Badges
 -------------------
 
-If your ``Badge.award()`` method takes a long time to compute it often makes
-sense to not actually call it during the request/response cycle, as this would
-slow down your site, and ``Badges`` rarely need to be awarded immediately.  To
-facilitate this ``brabeion`` provides an ``async`` option ``Badges``.  When set
-to ``True``, instead of calculating whether the user should be awarded a badge
-during the request/response cycle, the ``Badge`` being awarded will be queued
-for later using `celery <http://github.com/ask/celery>`_.  Because this
-processing won't occur until later, if you need to provide additional state
-(perhaps because the state that your ``Badge.award()`` method relies upon is
-mutable) on asynchronous ``Badges`` you can define a ``freeze()`` method to add
-additional state:
+.. note::
+    
+    To use asynchronous badges you must have
+    `celery <http://github.com/ask/celery>`_ installed and configured.
+
+If your ``Badge.award()`` method takes a long time to compute it may be
+prohibitively expensive to call during the request/response cycle.  To solve
+this problem ``brabeion`` provides an ``async`` option to ``Badges``.  If this
+is ``True`` ``brabeion`` will defer calling your ``award()`` method, using
+``celery``, and it will be called at a later time, by another process (read the
+`celery docs <http://celeryproject.org/docs/>`_ for more information on how
+``celery`` works).
+
+Because ``award()`` won't be called until later you can define a ``freeze()``
+method which allows you to provide and additional state that you'll need to
+compute ``award()`` correctly.  This may be necessary because your ``Badge``
+requires some mutable state.
 
 .. sourcecode:: python
 
@@ -127,9 +133,9 @@ additional state:
             state["current_day"] = datetime.today()
             return state
 
-In this example badge the user will be awarded it when they've visited the site
-every day for a month, this is expensive to calculate so it will be done
-outside the request/response cycle.  However, what happens if they visit the
-site right before midnight, and then the ``award()`` method isn't actually
-called until the next day?  Using the freeze method you can provide additional
-state for use with asynchronous badges.
+In this example badge the user will be awarded the ``AddictBadge`` when they've
+visited the site every day for a month, this is expensive to calculate so it
+will be done outside the request/response cycle.  However, what happens if they
+visit the site right before midnight, and then the ``award()`` method isn't
+actually called until the next day?  Using the freeze method you can provide
+additional state to the ``award()`` method.
