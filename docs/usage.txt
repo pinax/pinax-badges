@@ -4,6 +4,8 @@ Using ``brabeion``
 Getting Started
 ---------------
 
+.. class:: brabeion.base.Badge
+
 ``brabeion`` works by allowing you to define your badges as subclasses of a
 common ``Badge`` class and registering them with ``brabeion``.  For example if
 your site gave users points, and you wanted to award three ranks of badges
@@ -40,7 +42,42 @@ based on how many points a user had your badge might look like this:
         
     badges.register(PointsBadge)
 
-The one important thing to note is that ``BadgeAwarded.level`` is 1-indexed.
+There are a few relevant attributes and methods here.
+
+.. attribute:: slug
+    
+    The unique identifier for this ``Badge``, it should never change.
+
+.. attribute:: levels
+    
+    A list of the levels available for this badge (if this badge doesn't have
+    levels it should just be a list with one item).  It can either be a list of
+    strings, which are the names of the levels, or a list of
+    :class:`brabeion.base.BadgeDetail` which have both names and description.
+
+.. attribute:: events
+    
+    A list of events that can possibly trigger this badge to be awarded.  How
+    events are triggered is described in further detail below.
+
+.. attribute:: multiple
+
+    A boolean specifying whether or not this badge can be awarded to the same
+    user multiple times, currently if this badge has multiple levels this must
+    be ``False``.
+
+.. method:: award(self, **state)
+    
+    This method returns whether or not a user should be awarded this badge.
+    ``state`` is guarnteed to have a ``"user"`` key, as well as any other
+    custom data you provide.  It should return either a ``BadgeAwarded``
+    instance, or ``None``.  If this ``Badge`` doesn't have multiple levels 
+    ``BadgeAwarded`` doesn't need to be provided an explicit level.
+    
+    .. note::
+        
+        ``BadgeAwarded.level`` is 1-indexed.
+
 
 Now that you have your ``PointsBadge`` class you need to be able to tell
 ``brabeion`` when to try to give it to a user.  To do this, any time a user
