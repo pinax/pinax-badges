@@ -2,7 +2,10 @@ Welcome to brabeion's documentation!
 ====================================
 
 ``brabeion`` is a powerful, extensible, reusable application that provides
-support for awarding badges to users in Django.
+support for awarding badges to users in Django.  It provides simple
+abstractions over awarding users badges for completing tasks, including
+multi-level badges, and repeatable badges, making it super simple to add badges
+to a Django project.
 
 .. toctree::
    :maxdepth: 2
