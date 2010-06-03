@@ -1,0 +1,11 @@
+Welcome to brabeion's documentation!
+====================================
+
+``brabeion`` is a powerful, extensible, reusable application that provides
+support for awarding badges to users in Django.
+
+.. toctree::
+   :maxdepth: 2
+
+   usage
+

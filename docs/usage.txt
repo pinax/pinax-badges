@@ -1,11 +1,16 @@
 Using ``brabeion``
 ==================
 
+Getting Started
+---------------
+
 ``brabeion`` works by allowing you to define your badges as subclasses of a
 common ``Badge`` class and registering them with ``brabeion``.  For example if
 your site gave users points, and you wanted to award three ranks of badges
 based on how many points a user had your badge might look like this:
-    
+
+.. sourcecode:: python
+
     from brabeion import badges
     from brabeion.base import Badge, BadgeAwarded
     
@@ -42,8 +47,10 @@ Now that you have your ``PointsBadge`` class you need to be able to tell
 *might* have received a badge just call ``badges.possibly_award_badge`` with
 the name of the event, and whatever state these events might need and
 ``brabeion`` will handle the details of seeing what badges need to be awarded
-to the user::
-    
+to the user:
+
+.. sourcecode:: python
+
     from brabeion import badges
     
     def my_view(request):
@@ -59,19 +66,21 @@ the award time of the badge you can pass a ``force_timestamp`` keyword argument
 to ``possible_award_badge()``.
 
 Asynchronous Badges
-===================
+-------------------
 
 If your ``Badge.award()`` method takes a long time to compute it often makes
 sense to not actually call it during the request/response cycle, as this would
-slow it down, and ``Badges`` rarely need to be awarded immediately.  To
+slow down your site, and ``Badges`` rarely need to be awarded immediately.  To
 facilitate this ``brabeion`` provides an ``async`` option ``Badges``.  When set
-to true, instead of calculating whether the user should be awarded a badge
+to ``True``, instead of calculating whether the user should be awarded a badge
 during the request/response cycle, the ``Badge`` being awarded will be queued
-for later using ```celery`` <http://github.com/ask/celery>`_.  Because this
+for later using `celery <http://github.com/ask/celery>`_.  Because this
 processing won't occur until later, if you need to provide additional state
 (perhaps because the state that your ``Badge.award()`` method relies upon is
 mutable) on asynchronous ``Badges`` you can define a ``freeze()`` method to add
 additional state:
+
+.. sourcecode:: python
 
     class AddictBadge(Badge):
         # stuff
