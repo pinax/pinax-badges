@@ -1,0 +1,30 @@
+Templatetags in ``brabeion``
+============================
+
+``brabeion`` offers a number of templatetags for your convenience.
+
+``badge_count``
+---------------
+
+This tag returns the number of badges that have been awarded to this user, it
+can either set a value in context, or simple display the count.  To display the count its syntax is:
+
+.. sourcecode:: html+django
+    
+    {% badge_count user %}
+
+To get the count as a template variable:
+
+.. sourcecode:: html+django
+    
+    {% badge_count user as badges %}
+
+``badges_for_user``
+-------------------
+
+This tag gets all of a user's badges and makes them available in the template.
+They are ordered by when they were awarded, descending:
+
+.. sourcecode:: html+django
+    
+    {% badges_for_user user as badges %}

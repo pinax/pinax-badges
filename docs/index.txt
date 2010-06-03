@@ -8,4 +8,5 @@ support for awarding badges to users in Django.
    :maxdepth: 2
 
    usage
+   templatetags
 
