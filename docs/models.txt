@@ -17,8 +17,11 @@ Models in ``brabeion``
         
         The slug for the ``Badge`` this refers to.
     
-    .. attribute:: badge
+    .. attribute:: name
         
-        An ``AwardedBadge`` object, which has the ``level``, ``name``, and
-        ``description`` properties for the level of the ``Badge`` that it
-        corropsonds to.
+        The name for the ``Badge`` this refers to, for the approrpiate level.
+    
+    .. attribute:: description
+        
+        The description for the ``Badge`` this refers to, for the approrpiate
+        level.

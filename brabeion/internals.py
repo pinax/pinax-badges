@@ -30,33 +30,4 @@ class BadgeCache(object):
             badge.possibly_award(**state)
 
 
-class AwardedBadge(object):
-    def __init__(self, slug, level, user_id):
-        self.slug = slug
-        self.level = level
-        self._user_id = user_id
-        self._badge = badges._registry[slug]
-    
-    def __getattr__(self, attr):
-        return getattr(self._badge, attr)
-    
-    @property
-    def user(self):
-        if not hasattr(self, "_user"):
-            self._user = User.objects.get(pk=self._user_id)
-        return self._user
-    
-    @property
-    def name(self):
-        return self._badge.levels[self.level].name
-    
-    @property
-    def description(self):
-        return self._badge.levels[self.level].description
-    
-    @property
-    def progress(self):
-        return self._badge.progress(self.user, self.level)
-
-
 badges = BadgeCache()
