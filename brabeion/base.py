@@ -73,7 +73,11 @@ def send_badge_messages(badge, **kwargs):
     If the Badge class defines a message, send it to the user who was just
     awarded the badge.
     """
-    message = getattr(badge.badge, "message", None)
+    user_message = getattr(badge.badge, "user_message", None)
+    if callable(user_message):
+        message = user_message()
+    else:
+        message = user_message
     if message is not None:
         badge.user.message_set.create(message=message)
 badge_awarded.connect(send_badge_messages)
