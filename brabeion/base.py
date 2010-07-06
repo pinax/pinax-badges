@@ -66,3 +66,21 @@ class Badge(object):
     
     def freeze(self, **state):
         return state
+
+
+
+def send_badge_messages(badge, **kwargs):
+    """
+    If the Badge class defines a message, send it to the user who was just
+    awarded the badge.
+    """
+
+    try:
+        message = badge.badge.message
+        if message is not None:
+            badge.user.message_set.create(message=message)
+    except:
+        pass
+        
+badge_awarded.connect(send_badge_messages)
+    
