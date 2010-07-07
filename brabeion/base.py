@@ -68,16 +68,16 @@ class Badge(object):
         return state
 
 
-def send_badge_messages(badge, **kwargs):
+def send_badge_messages(badge_award, **kwargs):
     """
     If the Badge class defines a message, send it to the user who was just
     awarded the badge.
     """
-    user_message = getattr(badge.badge, "user_message", None)
+    user_message = getattr(badge_award.badge, "user_message", None)
     if callable(user_message):
-        message = user_message()
+        message = user_message(badge_award)
     else:
         message = user_message
     if message is not None:
-        badge.user.message_set.create(message=message)
+        badge_award.user.message_set.create(message=message)
 badge_awarded.connect(send_badge_messages)
