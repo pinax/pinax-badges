@@ -62,7 +62,7 @@ class Badge(object):
             extra_kwargs["awarded_at"] = force_timestamp
         badge = BadgeAward.objects.create(user=user, slug=self.slug,
             level=awarded, **extra_kwargs)
-        badge_awarded.send(sender=self, badge=badge)
+        badge_awarded.send(sender=self, badge_award=badge)
     
     def freeze(self, **state):
         return state
