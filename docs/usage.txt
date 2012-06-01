@@ -100,7 +100,7 @@ to the user:
 
 By default badges will be awarded at the current time, if you need to overide
 the award time of the badge you can pass a ``force_timestamp`` keyword argument
-to ``possible_award_badge()``.
+to ``possibly_award_badge()``.
 
 Asynchronous Badges
 -------------------
