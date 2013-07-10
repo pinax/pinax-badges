@@ -3,7 +3,7 @@ Models in ``brabeion``
 
 .. module:: brabeion.models
 
-.. class:: BadgeAwarded(models.Model)
+.. class:: BadgeAward(models.Model)
 
     .. attribute:: user
         

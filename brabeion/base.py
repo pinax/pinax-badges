@@ -46,8 +46,6 @@ class Badge(object):
         awarded = self.award(**state)
         if awarded is None:
             return
-        if awarded.user is not None:
-            user = awarded.user
         if awarded.level is None:
             assert len(self.levels) == 1
             awarded.level = 1
