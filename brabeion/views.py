@@ -8,17 +8,17 @@ from brabeion import badges
 from brabeion.models import BadgeAward
 
 
-
 def badge_list(request):
     if request.user.is_authenticated():
-        user_badges = set((slug, level) for slug, level in
+        user_badges = set(
+            (slug, level) for slug, level in
             BadgeAward.objects.filter(
-                user = request.user
+                user=request.user
             ).values_list("slug", "level"))
     else:
         user_badges = []
     badges_awarded = BadgeAward.objects.values("slug", "level").annotate(
-        num = Count("pk")
+        num=Count("pk")
     )
     badges_dict = defaultdict(list)
     for badge in badges_awarded:
@@ -43,8 +43,8 @@ def badge_detail(request, slug, level):
     badge = badges._registry[slug].levels[int(level)]
 
     badge_awards = BadgeAward.objects.filter(
-        slug = slug,
-        level = level
+        slug=slug,
+        level=level
     ).order_by("-awarded_at")
 
     badge_count = badge_awards.count()

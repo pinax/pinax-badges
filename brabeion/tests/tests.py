@@ -40,8 +40,9 @@ class BaseTestCase(TestCase):
         settings.DEBUG = True
         current = len(connection.queries)
         func()
-        self.assertEqual(current+n, len(connection.queries), connection.queries[current:])
+        self.assertEqual(current + n, len(connection.queries), connection.queries[current:])
         settings.DEBUG = current_debug
+
 
 class BadgesTests(BaseTestCase):
     def test_award(self):

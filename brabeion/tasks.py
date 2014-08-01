@@ -1,7 +1,6 @@
 from celery.task import Task
 
 
-
 class AsyncBadgeAward(Task):
     ignore_result = True
 
