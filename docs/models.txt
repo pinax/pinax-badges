@@ -6,22 +6,22 @@ Models in ``brabeion``
 .. class:: BadgeAward(models.Model)
 
     .. attribute:: user
-        
+
         The user who was awarded this badge.
-    
+
     .. attribute:: awarded_at
-        
+
         The ``datetime`` that this badge was awarded at.
-    
+
     .. attribute:: slug
-        
+
         The slug for the ``Badge`` this refers to.
-    
+
     .. attribute:: name
-        
+
         The name for the ``Badge`` this refers to, for the approrpiate level.
-    
+
     .. attribute:: description
-        
+
         The description for the ``Badge`` this refers to, for the approrpiate
         level.

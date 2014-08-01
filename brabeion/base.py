@@ -17,13 +17,13 @@ class BadgeDetail(object):
 
 class Badge(object):
     async = False
-    
+
     def __init__(self):
         assert not (self.multiple and len(self.levels) > 1)
         for i, level in enumerate(self.levels):
             if not isinstance(level, BadgeDetail):
                 self.levels[i] = BadgeDetail(level)
-    
+
     def possibly_award(self, **state):
         """
         Will see if the user should be awarded a badge.  If this badge is
@@ -36,7 +36,7 @@ class Badge(object):
             AsyncBadgeAward.delay(self, state)
             return
         self.actually_possibly_award(**state)
-    
+
     def actually_possibly_award(self, **state):
         """
         Does the actual work of possibly awarding a badge.
@@ -61,7 +61,7 @@ class Badge(object):
         badge = BadgeAward.objects.create(user=user, slug=self.slug,
             level=awarded, **extra_kwargs)
         badge_awarded.send(sender=self, badge_award=badge)
-    
+
     def freeze(self, **state):
         return state
 

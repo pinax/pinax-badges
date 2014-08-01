@@ -19,7 +19,7 @@ class PointsBadge(Badge):
         "points_awarded",
     ]
     multiple = False
-    
+
     def award(self, **state):
         user = state["user"]
         points = user.stats.points
@@ -62,11 +62,11 @@ class BadgesTests(BaseTestCase):
         u.stats.points += 2500
         badges.possibly_award_badge("points_awarded", user=u)
         self.assertEqual(u.badges_earned.count(), 2)
-    
+
     def test_lazy_user(self):
         u = User.objects.create_user("Lars Bak", "lars@hotspot.com", "x864lyfe")
         PlayerStat.objects.create(user=u, points=5001)
         badges.possibly_award_badge("points_awarded", user=u)
         self.assertEqual(u.badges_earned.count(), 1)
-        
+
         self.assert_num_queries(1, lambda: u.badges_earned.get().badge)

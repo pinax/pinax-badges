@@ -15,8 +15,8 @@ based on how many points a user had your badge might look like this:
 
     from brabeion import badges
     from brabeion.base import Badge, BadgeAwarded
-    
-    
+
+
     class PointsBadge(Badge):
         slug = "points"
         levels = [
@@ -28,7 +28,7 @@ based on how many points a user had your badge might look like this:
             "points_awarded",
         ]
         multiple = False
-        
+
         def award(self, **state):
             user = state["user"]
             points = user.get_profile().points
@@ -38,25 +38,25 @@ based on how many points a user had your badge might look like this:
                 return BadgeAwarded(level=2)
             elif points > 5000:
                 return BadgeAwarded(level=1)
-        
-        
+
+
     badges.register(PointsBadge)
 
 There are a few relevant attributes and methods here.
 
 .. attribute:: slug
-    
+
     The unique identifier for this ``Badge``, it should never change.
 
 .. attribute:: levels
-    
+
     A list of the levels available for this badge (if this badge doesn't have
     levels it should just be a list with one item).  It can either be a list of
     strings, which are the names of the levels, or a list of
     :class:`brabeion.base.BadgeDetail` which have both names and description.
 
 .. attribute:: events
-    
+
     A list of events that can possibly trigger this badge to be awarded.  How
     events are triggered is described in further detail below.
 
@@ -67,15 +67,15 @@ There are a few relevant attributes and methods here.
     be ``False``.
 
 .. method:: award(self, **state)
-    
+
     This method returns whether or not a user should be awarded this badge.
     ``state`` is guarnteed to have a ``"user"`` key, as well as any other
     custom data you provide.  It should return either a ``BadgeAwarded``
-    instance, or ``None``.  If this ``Badge`` doesn't have multiple levels 
+    instance, or ``None``.  If this ``Badge`` doesn't have multiple levels
     ``BadgeAwarded`` doesn't need to be provided an explicit level.
-    
+
     .. note::
-        
+
         ``BadgeAwarded.level`` is 1-indexed.
 
 
@@ -89,7 +89,7 @@ to the user:
 .. sourcecode:: python
 
     from brabeion import badges
-    
+
     def my_view(request):
         if request.method == "POST":
             # do some things
@@ -106,7 +106,7 @@ Asynchronous Badges
 -------------------
 
 .. note::
-    
+
     To use asynchronous badges you must have
     `celery <http://github.com/ask/celery>`_ installed and configured.
 
@@ -128,7 +128,7 @@ requires some mutable state.
     class AddictBadge(Badge):
         # stuff
         async = True
-        
+
         def freeze(self, **state):
             state["current_day"] = datetime.today()
             return state

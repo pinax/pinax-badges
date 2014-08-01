@@ -14,4 +14,3 @@ to a Django project.
    models
    templatetags
    signals
-

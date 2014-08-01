@@ -29,27 +29,27 @@ def badge_list(request):
             "count": badge["num"],
             "user_has": (badge["slug"], badge["level"]) in user_badges
         })
-    
+
     for badge_group in badges_dict.values():
         badge_group.sort(key=lambda o: o["level"])
-    
+
     return render_to_response("brabeion/badges.html", {
         "badges": sorted(badges_dict.items()),
     }, context_instance=RequestContext(request))
 
 
 def badge_detail(request, slug, level):
-    
+
     badge = badges._registry[slug].levels[int(level)]
-    
+
     badge_awards = BadgeAward.objects.filter(
         slug = slug,
         level = level
     ).order_by("-awarded_at")
-    
+
     badge_count = badge_awards.count()
     latest_awards = badge_awards[:50]
-    
+
     return render_to_response("brabeion/badge_detail.html", {
         "badge": badge,
         "badge_count": badge_count,
