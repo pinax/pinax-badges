@@ -1,10 +1,11 @@
-from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 
+from brabeion.compat import AUTH_USER_MODEL
+
 
 class BadgeAward(models.Model):
-    user = models.ForeignKey(User, related_name="badges_earned")
+    user = models.ForeignKey(AUTH_USER_MODEL, related_name="badges_earned")
     awarded_at = models.DateTimeField(default=timezone.now)
     slug = models.CharField(max_length=255)
     level = models.IntegerField()

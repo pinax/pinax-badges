@@ -1,11 +1,14 @@
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.db import connection
 from django.test import TestCase
 
 from brabeion import badges
 from brabeion.base import Badge, BadgeAwarded
 from brabeion.tests.models import PlayerStat
+
+from brabeion.compat import get_user_model
+
+User = get_user_model()
 
 
 class PointsBadge(Badge):

@@ -1,7 +1,9 @@
-from django.contrib.auth.models import User
 from django.db import models
 
 
+from brabeion.compat import AUTH_USER_MODEL
+
+
 class PlayerStat(models.Model):
-    user = models.OneToOneField(User, related_name="stats")
+    user = models.OneToOneField(AUTH_USER_MODEL, related_name="stats")
     points = models.IntegerField(default=0)
