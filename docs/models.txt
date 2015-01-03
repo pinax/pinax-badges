@@ -25,3 +25,26 @@ Models in ``brabeion``
 
         The description for the ``Badge`` this refers to, for the approrpiate
         level.
+
+
+Custom Model in ``brabeion``
+======================
+
+.. code-block:: python
+   :emphasize-lines: 3,5
+
+    from brabeion.models import BadgeAward
+
+    class CustomBadgeAwardModel(BadgeAward):
+        pass
+
+
+setting definitions (settings.py)
+
+.. code-block:: python
+   :emphasize-lines: 3,5
+
+    BRABEION = {
+        'ABSTRACT_MODEL': True,
+        'BADGEAWARD_MODEL': 'customapp.models.CustomBadgeAwardModel'
+    }

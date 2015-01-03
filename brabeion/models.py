@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
+from brabeion.settings import brabeion_settings
 
 
 class BadgeAward(models.Model):
@@ -8,6 +9,9 @@ class BadgeAward(models.Model):
     awarded_at = models.DateTimeField(default=timezone.now)
     slug = models.CharField(max_length=255)
     level = models.IntegerField()
+
+    class Meta:
+        abstract = brabeion_settings.ABSTRACT_MODEL
 
     def __getattr__(self, attr):
         return getattr(self._badge, attr)

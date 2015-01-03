@@ -5,7 +5,9 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 from brabeion import badges
-from brabeion.models import BadgeAward
+from brabeion.settings import brabeion_settings
+
+BadgeAward = brabeion_settings.BADGEAWARD_MODEL
 
 
 def badge_list(request):
