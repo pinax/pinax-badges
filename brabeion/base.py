@@ -1,5 +1,7 @@
-from brabeion.models import BadgeAward
 from brabeion.signals import badge_awarded
+from brabeion.settings import brabeion_settings
+
+BadgeAward = brabeion_settings.BADGEAWARD_MODEL
 
 
 class BadgeAwarded(object):

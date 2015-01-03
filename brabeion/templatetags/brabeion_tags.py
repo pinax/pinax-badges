@@ -1,6 +1,8 @@
 from django import template
 
-from brabeion.models import BadgeAward
+from brabeion.settings import brabeion_settings
+
+BadgeAward = brabeion_settings.BADGEAWARD_MODEL
 
 
 register = template.Library()
