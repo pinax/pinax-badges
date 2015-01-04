@@ -17,6 +17,13 @@ settings.configure(
         "brabeion",
         "brabeion.tests",
     ],
+    # this fixes warnings in django 1.7
+    MIDDLEWARE_CLASSES=(
+        'django.middleware.common.CommonMiddleware',
+        'django.contrib.sessions.middleware.SessionMiddleware',
+        'django.contrib.auth.middleware.AuthenticationMiddleware',
+        'django.contrib.messages.middleware.MessageMiddleware',
+    )
 )
 
 
