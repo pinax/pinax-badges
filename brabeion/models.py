@@ -9,6 +9,9 @@ class BadgeAward(models.Model):
     slug = models.CharField(max_length=255)
     level = models.IntegerField()
 
+    class Meta:
+        app_label = 'brabeion'
+
     def __getattr__(self, attr):
         return getattr(self._badge, attr)
 
