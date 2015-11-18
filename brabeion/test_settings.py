@@ -10,3 +10,5 @@ INSTALLED_APPS = [
     "brabeion",
     "brabeion.tests",
 ]
+
+AUTH_USER_MODEL = 'users.User'
