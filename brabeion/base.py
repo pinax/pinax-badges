@@ -1,4 +1,3 @@
-from brabeion.models import BadgeAward
 from brabeion.signals import badge_awarded
 
 
@@ -37,6 +36,7 @@ class Badge(object):
         self.actually_possibly_award(**state)
 
     def actually_possibly_award(self, **state):
+        from brabeion.models import BadgeAward
         """
         Does the actual work of possibly awarding a badge.
         """
