@@ -8,6 +8,7 @@ from pinax.badges.base import Badge, BadgeAwarded
 from pinax.badges.registry import badges
 
 from .models import PlayerStat
+from .templatetags import pinax_badges_tags
 
 
 class PointsBadge(Badge):
@@ -73,3 +74,19 @@ class BadgesTests(BaseTestCase):
         self.assertEqual(u.badges_earned.count(), 1)
 
         self.assert_num_queries(1, lambda: u.badges_earned.get().badge)
+
+
+class TemplateTagsTests(TestCase):
+
+    def setUp(self):
+        self.user = User.objects.create_user("Lars Bak", "lars@hotspot.com", "x864lyfe")
+        PlayerStat.objects.create(user=u)
+        self.user.stats.points += 5001
+        self.user.stats.save()
+        badges.possibly_award_badge("points_awarded", user=u)
+
+    def test_badge_count(self):
+        self.assertEqual(pinax_badges_tags.badge_count(self.user), 1)
+
+    def test_badges_for_user(self):
+        self.assertEqual(pinax_badges_tags.badges_for_user(self.user).count(), 1)
