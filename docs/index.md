@@ -11,5 +11,6 @@ It provides simple abstractions over awarding users badges for completing tasks,
 including multi-level badges, and repeatable badges, making it super simple to
 add badges to a Django project.
 
-It was built by [Eldarion](http://eldarion.com) as `brabeion` for use in
-[Typewar](http://typewar.com) and donated to Pinax in August 2017.
+!!! note
+    It was built by [Eldarion](http://eldarion.com) as `brabeion` for use in
+    [Typewar](http://typewar.com) and donated to Pinax in August 2017.
