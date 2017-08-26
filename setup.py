@@ -16,7 +16,7 @@ setup(
     description="a reusable Django badges application",
     name="pinax-badges",
     long_description=read("README.rst"),
-    version="1.0.0",
+    version="1.0.1",
     url="http://github.com/pinax/pinax-badges/",
     license="MIT",
     packages=find_packages(),
