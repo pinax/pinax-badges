@@ -1,5 +1,6 @@
-brabeion
---------
+Pinax Badges
+------------
+
 .. image:: http://slack.pinaxproject.com/badge.svg
    :target: http://slack.pinaxproject.com/
 
@@ -19,7 +20,13 @@ brabeion
    :target:  https://pypi.python.org/pypi/pinax-badges/
 
 
-`brabeion` is a powerful, extensible, reusable application that provides
-support for awarding badges to users in Django.
+As a reusable Django app, `pinax-badges` provides the ecosystem with
+a well tested, documented, and proven badges application for awarding badges
+to users in Django.
 
-Checkout the `docs/` directory for tons more information.
+It provides simple abstractions over awarding users badges for completing tasks,
+including multi-level badges, and repeatable badges, making it super simple to
+add badges to a Django project.
+
+It was built by `Eldarion <http://eldarion.com>`_ as `brabeion` for use in
+`Typewar <http://typewar.com>`_ and donated to Pinax in August 2017.
