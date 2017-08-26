@@ -1,0 +1,7 @@
+[run]
+source = pinax
+omit = pinax/badges/tests/*,pinax/badges/admin.py
+branch = 1
+
+[report]
+omit = pinax/badges/tests/*,pinax/badges/admin.py

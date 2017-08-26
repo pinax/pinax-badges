@@ -1,4 +1,4 @@
-from brabeion.base import Badge
+from .base import Badge
 
 
 class BadgeCache(object):

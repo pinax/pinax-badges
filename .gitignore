@@ -1,4 +1,13 @@
-*.py[co]
+build
+dist
+.coverage
+.tox
+.idea
+MANIFEST
+*.pyc
 *.egg-info
-docs/_build/*
-docs/_static/*
+*.egg
+docs/_build/
+htmlcov/
+__pycache__/
+.vscode

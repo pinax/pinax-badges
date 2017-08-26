@@ -1,0 +1,135 @@
+# Using Pinax Badges
+
+## Getting Started
+
+### `pinax.badges.base.Badge`
+
+Pinax Badges works by allowing you to define your badges as subclasses of a
+common `Badge` class and registering them with `pinax-badges`.  For example if
+your site gave users points, and you wanted to award three ranks of badges
+based on how many points a user had your badge might look like this:
+
+```python
+    from pinax.badges.base import Badge, BadgeAwarded
+    from pinax.badges.registry import badges
+
+    class PointsBadge(Badge):
+        slug = "points"
+        levels = [
+            "Bronze",
+            "Silver",
+            "Gold",
+        ]
+        events = [
+            "points_awarded",
+        ]
+        multiple = False
+
+        def award(self, **state):
+            user = state["user"]
+            points = user.get_profile().points
+            if points > 10000:
+                return BadgeAwarded(level=3)
+            elif points > 7500:
+                return BadgeAwarded(level=2)
+            elif points > 5000:
+                return BadgeAwarded(level=1)
+
+
+    badges.register(PointsBadge)
+```
+
+There are a few relevant attributes and methods here.
+
+#### `slug`
+
+The unique identifier for this `Badge`, it should never change.
+
+#### `levels`
+
+A list of the levels available for this badge (if this badge doesn't have
+levels it should just be a list with one item).  It can either be a list of
+strings, which are the names of the levels, or a list of
+`pinax.badges.base.BadgeDetail` which have both names and description.
+
+#### `events`
+
+A list of events that can possibly trigger this badge to be awarded.  How
+events are triggered is described in further detail below.
+
+#### `multiple`
+
+A boolean specifying whether or not this badge can be awarded to the same
+user multiple times, currently if this badge has multiple levels this must
+be `False`.
+
+#### `award(self, **state)`
+
+This method returns whether or not a user should be awarded this badge.
+`state` is guarnteed to have a `"user"` key, as well as any other
+custom data you provide.  It should return either a `BadgeAwarded`
+instance, or `None`.  If this `Badge` doesn't have multiple levels
+`BadgeAwarded` doesn't need to be provided an explicit level.
+
+Note: _`BadgeAwarded.level` is 1-indexed._
+
+
+Now that you have your `PointsBadge` class you need to be able to tell
+Pinax Badges when to try to give it to a user.  To do this, any time a user
+*might* have received a badge just call `badges.possibly_award_badge` with
+the name of the event, and whatever state these events might need and
+Pinax Badges will handle the details of seeing what badges need to be awarded
+to the user:
+
+```python
+    from pinax.badges.registry import badges
+
+    def my_view(request):
+        if request.method == "POST":
+            # do some things
+            request.user.profile.award_points(15)
+            badges.possibly_award_badge("points_awarded", user=request.user)
+        # more view
+```
+
+By default badges will be awarded at the current time, if you need to overide
+the award time of the badge you can pass a `force_timestamp` keyword argument
+to `possibly_award_badge()`.
+
+
+## Asynchronous Badges
+
+!!! important
+    To use asynchronous badges you must have [celery](http://github.com/ask/celery)
+    installed and configured.
+
+If your `Badge.award()` method takes a long time to compute it may be
+prohibitively expensive to call during the request/response cycle.  To solve
+this problem Pinax Badges provides an `async` option to `Badges`.  If this
+is `True` Pinax Badges will defer calling your `award()` method, using
+`celery`, and it will be called at a later time, by another process (read the
+[celery docs](http://celeryproject.org/docs/) for more information on how
+`celery` works).
+
+Because `award()` won't be called until later you can define a `freeze()`
+method which allows you to provide and additional state that you'll need to
+compute `award()` correctly.  This may be necessary because your `Badge`
+requires some mutable state.
+
+```python
+
+    class AddictBadge(Badge):
+        # stuff
+        async = True
+
+        def freeze(self, **state):
+            state["current_day"] = datetime.today()
+            return state
+```
+
+In this example badge the user will be awarded the `AddictBadge` when they've
+visited the site every day for a month, this is expensive to calculate so it
+will be done outside the request/response cycle.  However, what happens if they
+visit the site right before midnight, and then the `award()` method isn't
+actually called until the next day?  Using the freeze method you can provide
+additional state to the `award()` method.

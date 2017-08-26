@@ -1,12 +1,12 @@
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.db import models
 from django.utils import timezone
 
 
 class BadgeAward(models.Model):
-    user = models.ForeignKey(User, related_name="badges_earned")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="badges_earned", on_delete=models.CASCADE)
     awarded_at = models.DateTimeField(default=timezone.now)
-    slug = models.CharField(max_length=255)
+    slug = models.CharField(max_length=255, unique=True)
     level = models.IntegerField()
 
     def __getattr__(self, attr):
@@ -18,7 +18,7 @@ class BadgeAward(models.Model):
 
     @property
     def _badge(self):
-        from brabeion import badges
+        from .registry import badges
         return badges._registry[self.slug]
 
     @property

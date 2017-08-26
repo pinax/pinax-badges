@@ -1,5 +1,5 @@
-from brabeion.models import BadgeAward
-from brabeion.signals import badge_awarded
+from .models import BadgeAward
+from .signals import badge_awarded
 
 
 class BadgeAwarded(object):
@@ -30,7 +30,7 @@ class Badge(object):
         """
         assert "user" in state
         if self.async:
-            from brabeion.tasks import AsyncBadgeAward
+            from .tasks import AsyncBadgeAward
             state = self.freeze(**state)
             AsyncBadgeAward.delay(self, state)
             return
@@ -60,24 +60,26 @@ class Badge(object):
         if force_timestamp is not None:
             extra_kwargs["awarded_at"] = force_timestamp
         badge = BadgeAward.objects.create(
-            user=user, slug=self.slug,
-            level=awarded, **extra_kwargs)
+            user=user,
+            slug=self.slug,
+            level=awarded,
+            **extra_kwargs
+        )
+        self.send_badge_messages(badge)
         badge_awarded.send(sender=self, badge_award=badge)
+
+    def send_badge_messages(self, badge_award):
+        """
+        If the Badge class defines a message, send it to the user who was just
+        awarded the badge.
+        """
+        user_message = getattr(badge_award.badge, "user_message", None)
+        if callable(user_message):
+            message = user_message(badge_award)
+        else:
+            message = user_message
+        if message is not None:
+            badge_award.user.message_set.create(message=message)
 
     def freeze(self, **state):
         return state
-
-
-def send_badge_messages(badge_award, **kwargs):
-    """
-    If the Badge class defines a message, send it to the user who was just
-    awarded the badge.
-    """
-    user_message = getattr(badge_award.badge, "user_message", None)
-    if callable(user_message):
-        message = user_message(badge_award)
-    else:
-        message = user_message
-    if message is not None:
-        badge_award.user.message_set.create(message=message)
-badge_awarded.connect(send_badge_messages)
