@@ -80,10 +80,10 @@ class TemplateTagsTests(TestCase):
 
     def setUp(self):
         self.user = User.objects.create_user("Lars Bak", "lars@hotspot.com", "x864lyfe")
-        PlayerStat.objects.create(user=u)
+        PlayerStat.objects.create(user=self.user)
         self.user.stats.points += 5001
         self.user.stats.save()
-        badges.possibly_award_badge("points_awarded", user=u)
+        badges.possibly_award_badge("points_awarded", user=self.user)
 
     def test_badge_count(self):
         self.assertEqual(pinax_badges_tags.badge_count(self.user), 1)
