@@ -1,6 +1,6 @@
-from django.conf.urls import include
+from django.conf.urls import url, include
 
 
 urlpatterns = [
-    (r"^", include("pinax.badges.urls")),
+    url(r"^", include("pinax.badges.urls")),
 ]
