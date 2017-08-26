@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('awarded_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('slug', models.CharField(max_length=255, unique=True)),
+                ('slug', models.CharField(max_length=255)),
                 ('level', models.IntegerField()),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='badges_earned', to=settings.AUTH_USER_MODEL)),
             ],

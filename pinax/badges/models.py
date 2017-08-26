@@ -6,7 +6,7 @@ from django.utils import timezone
 class BadgeAward(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="badges_earned", on_delete=models.CASCADE)
     awarded_at = models.DateTimeField(default=timezone.now)
-    slug = models.CharField(max_length=255, unique=True)
+    slug = models.CharField(max_length=255)
     level = models.IntegerField()
 
     def __getattr__(self, attr):
