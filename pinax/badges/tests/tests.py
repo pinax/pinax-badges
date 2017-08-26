@@ -6,9 +6,9 @@ from django.contrib.auth.models import User
 
 from pinax.badges.base import Badge, BadgeAwarded
 from pinax.badges.registry import badges
+from pinax.badges.templatetags import pinax_badges_tags
 
 from .models import PlayerStat
-from .templatetags import pinax_badges_tags
 
 
 class PointsBadge(Badge):
