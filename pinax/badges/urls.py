@@ -1,7 +1,6 @@
 from django.conf.urls import url
 
-from .views import badge_list, badge_detail
-
+from .views import badge_detail, badge_list
 
 urlpatterns = [
     url(r"^$", badge_list, name="badge_list"),
