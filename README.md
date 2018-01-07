@@ -18,6 +18,7 @@
   * [Supported Django and Python versions](#supported-django-and-python-versions)
 * [Documentation](#documentation)
   * [Usage](#usage)
+  * [Asynchronous Badges](#asynchronous-badges)
   * [Models](#models)
   * [Signals](#signals)
   * [Template Tags](#template-tags)
