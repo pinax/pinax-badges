@@ -1,8 +1,7 @@
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.db import connection
 from django.test import TestCase
-
-from django.contrib.auth.models import User
 
 from pinax.badges.base import Badge, BadgeAwarded
 from pinax.badges.registry import badges
