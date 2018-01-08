@@ -229,7 +229,7 @@ additional state to the `award()` method.
 ##### `badge_awarded`
 
 This signal is sent whenever a badge is awarded to a user.  It provides a
-single argument, `badge`, which is an instance of `pinax.badges.models.BadgeAwarded`.
+single argument, `badge`, which is an instance of `pinax.badges.models.BadgeAward`.
 
 ### Template Tags
 
@@ -258,7 +258,7 @@ To get the count as a template variable:
 
 This tag provides a `QuerySet` of all of a user's badges, ordered by when
 they were awarded, descending, and makes them available as a template variable.
-The `QuerySet` is composed of `pinax.badges.models.BadgeAwarded` instances.
+The `QuerySet` is composed of `pinax.badges.models.BadgeAward` instances.
 
 ```html
     {% badges_for_user user as badges %}
