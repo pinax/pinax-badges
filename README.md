@@ -17,6 +17,7 @@
 * [Overview](#overview)
   * [Supported Django and Python versions](#supported-django-and-python-versions)
 * [Documentation](#documentation)
+  * [Installation](#installation)
   * [Usage](#usage)
   * [Asynchronous Badges](#asynchronous-badges)
   * [Models](#models)
@@ -56,6 +57,24 @@ Django \ Python | 2.7 | 3.4 | 3.5 | 3.6
 
 
 ## Documentation
+
+### Installation
+
+Install the development version:
+
+    pip install pinax-badges
+
+Add `pinax.badges` to your `INSTALLED_APPS` setting:
+
+    INSTALLED_APPS = (
+        # other apps
+        "pinax.badges",
+    )
+
+Add entry to your `urls.py`:
+
+    url(r"^badges/", include("pinax.badges.urls", namespace="pinax_badges"))
+    
 
 ### Usage
 
@@ -252,7 +271,8 @@ The `QuerySet` is composed of `pinax.badges.models.BadgeAwarded` instances.
 
 * Add Django 2.0 compatibility testing
 * Drop Django 1.8, 1.9, 1.10, and Python 3.3 support
-* Move documentation into README and standaridize layout
+* Add application URL namespacing
+* Move documentation into README and standardize layout
 * Convert CI and coverage to CircleCi and CodeCov
 * Add PyPi-compatible long description
 

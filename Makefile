@@ -1,15 +1,10 @@
-all: init docs test
+all: init test
 
 init:
 	python setup.py develop
-	pip install detox coverage mkdocs
+	pip install detox coverage
 
 test:
 	coverage erase
 	detox
 	coverage html
-
-docs:
-	mkdocs build
-
-.PHONY: docs
