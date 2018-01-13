@@ -1,3 +1,6 @@
+![](http://pinaxproject.com/pinax-design/patches/pinax-badges.svg)
+
+
 # Pinax Badges
 
 [![](https://img.shields.io/pypi/v/pinax-badges.svg)](https://pypi.python.org/pypi/pinax-badges/)
