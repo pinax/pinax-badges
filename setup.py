@@ -80,7 +80,7 @@ setup(
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
     install_requires=[
-        "Django>=1.8"
+        "django>=1.11",
     ],
     tests_require=[
     ],

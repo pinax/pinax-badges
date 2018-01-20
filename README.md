@@ -73,17 +73,21 @@ Install the development version:
 Add `pinax.badges` to your `INSTALLED_APPS` setting:
 
 ```python
-    INSTALLED_APPS = (
+    INSTALLED_APPS = [
         # other apps
         "pinax.badges",
-    )
+    ]
 ```
 
-Add entry to your `urls.py`:
+Add `pinax.badges.urls` to your project urlpatterns:
 
 ```python
-    url(r"^badges/", include("pinax.badges.urls", namespace="pinax_badges"))
+    urlpatterns = [
+        # other urls
+        url(r"^badges/", include("pinax.badges.urls", namespace="pinax_badges")),
+    ]
 ```
+
 
 ### Usage
 
@@ -180,9 +184,10 @@ By default badges will be awarded at the current time, if you need to overide
 the award time of the badge you can pass a `force_timestamp` keyword argument
 to `possibly_award_badge()`.
 
+
 ### Asynchronous Badges
 
-!!! important
+**Important**
     To use asynchronous badges you must have [celery](http://github.com/ask/celery)
     installed and configured.
 
@@ -200,7 +205,6 @@ compute `award()` correctly.  This may be necessary because your `Badge`
 requires some mutable state.
 
 ```python
-
     class AddictBadge(Badge):
         # stuff
         async = True
@@ -238,7 +242,7 @@ additional state to the `award()` method.
 ##### `badge_awarded`
 
 This signal is sent whenever a badge is awarded to a user.  It provides a
-single argument, `badge`, which is an instance of `pinax.badges.models.BadgeAwarded`.
+single argument, `badge`, which is an instance of `pinax.badges.models.BadgeAward`.
 
 ### Template Tags
 
@@ -267,7 +271,7 @@ To get the count as a template variable:
 
 This tag provides a `QuerySet` of all of a user's badges, ordered by when
 they were awarded, descending, and makes them available as a template variable.
-The `QuerySet` is composed of `pinax.badges.models.BadgeAwarded` instances.
+The `QuerySet` is composed of `pinax.badges.models.BadgeAward` instances.
 
 ```django
     {% badges_for_user user as badges %}
