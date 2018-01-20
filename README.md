@@ -1,3 +1,5 @@
+![](http://pinaxproject.com/pinax-design/patches/pinax-badges.svg)
+
 # Pinax Badges
 
 [![](https://img.shields.io/pypi/v/pinax-badges.svg)](https://pypi.python.org/pypi/pinax-badges/)
@@ -10,6 +12,7 @@
 
 [![](http://slack.pinaxproject.com/badge.svg)](http://slack.pinaxproject.com/)
 [![](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 
 ## Table of Contents
 
@@ -29,6 +32,7 @@
 * [Code of Conduct](#code-of-conduct)
 * [Connect with Pinax](#connect-with-pinax)
 * [License](#license)
+
 
 ## About Pinax
 
@@ -83,7 +87,7 @@ Add `pinax.badges.urls` to your project urlpatterns:
         url(r"^badges/", include("pinax.badges.urls", namespace="pinax_badges")),
     ]
 ```
-    
+
 
 ### Usage
 
@@ -179,6 +183,7 @@ to the user:
 By default badges will be awarded at the current time, if you need to overide
 the award time of the badge you can pass a `force_timestamp` keyword argument
 to `possibly_award_badge()`.
+
 
 ### Asynchronous Badges
 
