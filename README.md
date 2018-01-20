@@ -62,18 +62,27 @@ Django \ Python | 2.7 | 3.4 | 3.5 | 3.6
 
 Install the development version:
 
-    pip install pinax-badges
+```shell
+    $ pip install pinax-badges
+```
 
 Add `pinax.badges` to your `INSTALLED_APPS` setting:
 
-    INSTALLED_APPS = (
+```python
+    INSTALLED_APPS = [
         # other apps
         "pinax.badges",
-    )
+    ]
+```
 
-Add entry to your `urls.py`:
+Add `pinax.badges.urls` to your project urlpatterns:
 
-    url(r"^badges/", include("pinax.badges.urls", namespace="pinax_badges"))
+```python
+    urlpatterns = [
+        # other urls
+        url(r"^badges/", include("pinax.badges.urls", namespace="pinax_badges")),
+    ]
+```
     
 
 ### Usage
@@ -173,7 +182,7 @@ to `possibly_award_badge()`.
 
 ### Asynchronous Badges
 
-!!! important
+**Important**
     To use asynchronous badges you must have [celery](http://github.com/ask/celery)
     installed and configured.
 
@@ -191,7 +200,6 @@ compute `award()` correctly.  This may be necessary because your `Badge`
 requires some mutable state.
 
 ```python
-
     class AddictBadge(Badge):
         # stuff
         async = True
@@ -244,13 +252,13 @@ This tag returns the number of badges that have been awarded to this user, it
 can either set a value in context, or simple display the count.  To display the
 count its syntax is:
 
-```html
+```django
     {% badge_count user %}
 ```
 
 To get the count as a template variable:
 
-```html
+```django
     {% badge_count user as badges %}
 ```
 
@@ -260,7 +268,7 @@ This tag provides a `QuerySet` of all of a user's badges, ordered by when
 they were awarded, descending, and makes them available as a template variable.
 The `QuerySet` is composed of `pinax.badges.models.BadgeAward` instances.
 
-```html
+```django
     {% badges_for_user user as badges %}
 ```
 

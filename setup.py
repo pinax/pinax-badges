@@ -30,7 +30,7 @@ Pinax Badges
 .. image:: http://slack.pinaxproject.com/badge.svg
     :target: http://slack.pinaxproject.com/
 .. image:: https://img.shields.io/badge/license-MIT-blue.svg
-    :target: https://pypi.python.org/pypi/pinax-badges/
+    :target: https://opensource.org/licenses/MIT/
 
 \ 
 
@@ -80,7 +80,7 @@ setup(
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
     install_requires=[
-        "Django>=1.8"
+        "django>=1.11",
     ],
     tests_require=[
     ],
