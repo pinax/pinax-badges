@@ -1,6 +1,5 @@
 ![](http://pinaxproject.com/pinax-design/patches/pinax-badges.svg)
 
-
 # Pinax Badges
 
 [![](https://img.shields.io/pypi/v/pinax-badges.svg)](https://pypi.python.org/pypi/pinax-badges/)
@@ -13,6 +12,7 @@
 
 [![](http://slack.pinaxproject.com/badge.svg)](http://slack.pinaxproject.com/)
 [![](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 
 ## Table of Contents
 
@@ -32,6 +32,7 @@
 * [Code of Conduct](#code-of-conduct)
 * [Connect with Pinax](#connect-with-pinax)
 * [License](#license)
+
 
 ## About Pinax
 
@@ -78,7 +79,6 @@ Add entry to your `urls.py`:
 
     url(r"^badges/", include("pinax.badges.urls", namespace="pinax_badges"))
     
-
 ### Usage
 
 #### `pinax.badges.base.Badge`
