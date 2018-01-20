@@ -66,19 +66,25 @@ Django \ Python | 2.7 | 3.4 | 3.5 | 3.6
 
 Install the development version:
 
+```shell
     pip install pinax-badges
+```
 
 Add `pinax.badges` to your `INSTALLED_APPS` setting:
 
+```python
     INSTALLED_APPS = (
         # other apps
         "pinax.badges",
     )
+```
 
 Add entry to your `urls.py`:
 
+```python
     url(r"^badges/", include("pinax.badges.urls", namespace="pinax_badges"))
-    
+```
+
 ### Usage
 
 #### `pinax.badges.base.Badge`
