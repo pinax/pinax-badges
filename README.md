@@ -67,7 +67,7 @@ Django \ Python | 2.7 | 3.4 | 3.5 | 3.6
 Install the development version:
 
 ```shell
-    pip install pinax-badges
+    $ pip install pinax-badges
 ```
 
 Add `pinax.badges` to your `INSTALLED_APPS` setting:
@@ -253,13 +253,13 @@ This tag returns the number of badges that have been awarded to this user, it
 can either set a value in context, or simple display the count.  To display the
 count its syntax is:
 
-```html
+```django
     {% badge_count user %}
 ```
 
 To get the count as a template variable:
 
-```html
+```django
     {% badge_count user as badges %}
 ```
 
@@ -269,7 +269,7 @@ This tag provides a `QuerySet` of all of a user's badges, ordered by when
 they were awarded, descending, and makes them available as a template variable.
 The `QuerySet` is composed of `pinax.badges.models.BadgeAwarded` instances.
 
-```html
+```django
     {% badges_for_user user as badges %}
 ```
 
