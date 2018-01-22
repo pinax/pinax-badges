@@ -278,6 +278,42 @@ The `QuerySet` is composed of `pinax.badges.models.BadgeAward` instances.
 ```
 
 
+### Templates
+
+Templates are supplied by the user, in a `pinax/badges/` subfolder in your project template search path.
+
+#### `badges.html`
+
+Lists all badges.
+
+Context data:
+A sorted iterable of badge dictionaries keyed by badge slug:
+
+```python
+"badges": 
+[ 
+    "<badge slug>": {
+        "level": val,  # badge level
+        "name": val,  # badge level name
+        "description": val,  # badge level description
+        "count": val,  # badge count
+        "user_has": val,  # name and level of badges of this type earned by user
+    },
+]
+``` 
+
+
+#### `badge_detail.html`
+
+Context data:
+
+```python
+"badge": badge,  # badge to be displayed
+"badge_count": badge_count,  # number of times it has been awarded
+"latest_awards": latest_awards,  # most recent awards of badge
+```
+
+
 ## Change Log
 
 ### 2.0.0
