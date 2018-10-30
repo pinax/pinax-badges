@@ -328,8 +328,7 @@ Context data:
 
 ## History
 
-It was built by `Eldarion <http://eldarion.com>`_ as `brabeion` for use in
-`Typewar <http://typewar.com>`_ and donated to Pinax in August 2017.
+It was built by [Eldarion](http://eldarion.com) as `brabeion` for use in [Typewar](http://typewar.com) and donated to Pinax in August 2017.
 
 
 ## Contribute
