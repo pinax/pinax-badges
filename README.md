@@ -26,6 +26,7 @@
   * [Models](#models)
   * [Signals](#signals)
   * [Template Tags](#template-tags)
+  * [Templates](#templates)
 * [Change Log](#change-log)
 * [History](#history)
 * [Contribute](#contribute)
@@ -87,7 +88,6 @@ Add `pinax.badges.urls` to your project urlpatterns:
         url(r"^badges/", include("pinax.badges.urls", namespace="pinax_badges")),
     ]
 ```
-
 
 ### Usage
 
@@ -184,7 +184,6 @@ By default badges will be awarded at the current time, if you need to overide
 the award time of the badge you can pass a `force_timestamp` keyword argument
 to `possibly_award_badge()`.
 
-
 ### Asynchronous Badges
 
 **Important**
@@ -277,7 +276,6 @@ The `QuerySet` is composed of `pinax.badges.models.BadgeAward` instances.
     {% badges_for_user user as badges %}
 ```
 
-
 ### Templates
 
 Templates are supplied by the user, in a `pinax/badges/` subfolder in your project template search path.
@@ -301,7 +299,6 @@ A sorted iterable of badge dictionaries keyed by badge slug:
     },
 ]
 ``` 
-
 
 #### `badge_detail.html`
 
