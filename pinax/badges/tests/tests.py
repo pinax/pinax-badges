@@ -6,7 +6,6 @@ from django.test import TestCase
 from pinax.badges.base import Badge, BadgeAwarded
 from pinax.badges.registry import badges
 from pinax.badges.templatetags import pinax_badges_tags
-
 from .models import PlayerStat
 
 
@@ -73,6 +72,15 @@ class BadgesTests(BaseTestCase):
         self.assertEqual(u.badges_earned.count(), 1)
 
         self.assert_num_queries(1, lambda: u.badges_earned.get().badge)
+
+    def test_async_attribute(self):
+        b = PointsBadge()
+        self.assertEqual(b.async_, False)
+        self.assertEqual(getattr(b, 'async'), False)
+
+        setattr(b, 'async', True)
+        self.assertEqual(b.async_, True)
+        self.assertEqual(getattr(b, 'async'), True)
 
 
 class TemplateTagsTests(TestCase):

@@ -48,7 +48,7 @@ class Badge(object):
         if awarded.level is None:
             assert len(self.levels) == 1
             awarded.level = 1
-        # awarded levels are 1 indexed, for conveineince
+        # awarded levels are 1 indexed, for convenience
         awarded = awarded.level - 1
         assert awarded < len(self.levels)
         if (
