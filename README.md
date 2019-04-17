@@ -192,7 +192,7 @@ to `possibly_award_badge()`.
 
 If your `Badge.award()` method takes a long time to compute it may be
 prohibitively expensive to call during the request/response cycle.  To solve
-this problem Pinax Badges provides an `async` option to `Badges`.  If this
+this problem Pinax Badges provides an `async_` option to `Badges`.  If this
 is `True` Pinax Badges will defer calling your `award()` method, using
 `celery`, and it will be called at a later time, by another process (read the
 [celery docs](http://celeryproject.org/docs/) for more information on how
@@ -206,7 +206,7 @@ requires some mutable state.
 ```python
     class AddictBadge(Badge):
         # stuff
-        async = True
+        async_ = True
 
         def freeze(self, **state):
             state["current_day"] = datetime.today()

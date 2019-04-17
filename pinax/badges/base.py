@@ -15,7 +15,7 @@ class BadgeDetail(object):
 
 
 class Badge(object):
-    async = False
+    async_ = False
 
     def __init__(self):
         assert not (self.multiple and len(self.levels) > 1)
@@ -29,7 +29,7 @@ class Badge(object):
         asynchronous it just queues up the badge awarding.
         """
         assert "user" in state
-        if self.async:
+        if self.async_:
             from .tasks import AsyncBadgeAward
             state = self.freeze(**state)
             AsyncBadgeAward.delay(self, state)
@@ -52,8 +52,8 @@ class Badge(object):
         awarded = awarded.level - 1
         assert awarded < len(self.levels)
         if (
-            not self.multiple and
-            BadgeAward.objects.filter(user=user, slug=self.slug, level=awarded)
+                not self.multiple and
+                BadgeAward.objects.filter(user=user, slug=self.slug, level=awarded)
         ):
             return
         extra_kwargs = {}
@@ -83,3 +83,10 @@ class Badge(object):
 
     def freeze(self, **state):
         return state
+
+
+# Patch badge so badge.async is still available as an attribute on older Python
+# versions.
+setattr(Badge, 'async', property(
+    fget=lambda self: self.async_,
+    fset=lambda self, value: setattr(self, 'async_', value)))
