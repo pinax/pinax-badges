@@ -2,6 +2,14 @@ from .models import BadgeAward
 from .signals import badge_awarded
 
 
+def abstract_property(name):
+    def attr(*args):
+        msg = 'attribute %r must be defined on child class.' % name
+        raise NotImplementedError(msg)
+
+    return property(attr, attr)
+
+
 class BadgeAwarded(object):
     def __init__(self, level=None, user=None):
         self.level = level
@@ -16,6 +24,12 @@ class BadgeDetail(object):
 
 class Badge(object):
     async_ = False
+    multiple = abstract_property('multiple')
+    levels = abstract_property('levels')
+    slug = abstract_property('slug')
+
+    def award(self, **state):
+        raise NotImplementedError('must be implemented on base class')
 
     def __init__(self):
         assert not (self.multiple and len(self.levels) > 1)

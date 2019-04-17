@@ -82,6 +82,10 @@ class BadgesTests(BaseTestCase):
         self.assertEqual(b.async_, True)
         self.assertEqual(getattr(b, 'async'), True)
 
+    def test_undefined_attribute_error_message(self):
+        with self.assertRaises(NotImplementedError):
+            Badge()
+
 
 class TemplateTagsTests(TestCase):
 
