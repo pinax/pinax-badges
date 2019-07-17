@@ -74,6 +74,19 @@ class BadgesTests(BaseTestCase):
 
         self.assert_num_queries(1, lambda: u.badges_earned.get().badge)
 
+    def test_async_attribute(self):
+        b = PointsBadge()
+        self.assertEqual(b.async_, False)
+        self.assertEqual(getattr(b, "async"), False)
+
+        setattr(b, "async", True)
+        self.assertEqual(b.async_, True)
+        self.assertEqual(getattr(b, "async"), True)
+
+    def test_undefined_attribute_error_message(self):
+        with self.assertRaises(NotImplementedError):
+            Badge()
+
 
 class TemplateTagsTests(TestCase):
 
