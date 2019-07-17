@@ -6,6 +6,7 @@ from django.test import TestCase
 from pinax.badges.base import Badge, BadgeAwarded
 from pinax.badges.registry import badges
 from pinax.badges.templatetags import pinax_badges_tags
+
 from .models import PlayerStat
 
 
@@ -76,11 +77,11 @@ class BadgesTests(BaseTestCase):
     def test_async_attribute(self):
         b = PointsBadge()
         self.assertEqual(b.async_, False)
-        self.assertEqual(getattr(b, 'async'), False)
+        self.assertEqual(getattr(b, "async"), False)
 
-        setattr(b, 'async', True)
+        setattr(b, "async", True)
         self.assertEqual(b.async_, True)
-        self.assertEqual(getattr(b, 'async'), True)
+        self.assertEqual(getattr(b, "async"), True)
 
     def test_undefined_attribute_error_message(self):
         with self.assertRaises(NotImplementedError):
