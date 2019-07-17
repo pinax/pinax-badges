@@ -313,6 +313,10 @@ Context data:
 
 ## Change Log
 
+### 2.0.1
+
+* Change Badge.async attribute to Badge.async_ since async is now a keyword in Python 3.7. This was implemented in a backwards compatible way so Badge.async is still valid in older Python versions.
+
 ### 2.0.0
 
 * Add Django 2.0 compatibility testing
