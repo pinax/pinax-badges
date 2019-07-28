@@ -65,7 +65,7 @@ Django \ Python | 2.7 | 3.4 | 3.5 | 3.6
 
 ### Installation
 
-Install the development version:
+To install pinax-badges:
 
 ```shell
     $ pip install pinax-badges
