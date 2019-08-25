@@ -102,3 +102,13 @@ class TemplateTagsTests(TestCase):
 
     def test_badges_for_user(self):
         self.assertEqual(pinax_badges_tags.badges_for_user(self.user).count(), 1)
+
+
+class TasksTestCase(TestCase):
+
+    def test_import_without_celery(self):
+        # importing pinax.badges.tasks without celery installed should not fail
+        try:
+            import pinax.badges.tasks  # noqa
+        except ImportError:
+            self.fail("Importing pinax.badges.tasks without celery installed should not fail")

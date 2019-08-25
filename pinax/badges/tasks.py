@@ -1,4 +1,8 @@
-from celery import Task
+try:
+    from celery import Task
+except ImportError:
+    # If celery is not installed, just use a stub base class
+    Task = object
 
 
 class AsyncBadgeAward(Task):
