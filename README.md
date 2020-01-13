@@ -55,10 +55,10 @@ add badges to a Django project.
 
 #### Supported Django and Python versions
 
-Django \ Python | 2.7 | 3.4 | 3.5 | 3.6
---------------- | --- | --- | --- | ---
-1.11 |  *  |  *  |  *  |  *  
-2.0  |     |  *  |  *  |  *
+Django \ Python | 2.7 | 3.4 | 3.5 | 3.6 | 3.7
+--------------- | --- | --- | --- | --- | ---
+1.11 |  *  |  *  |  *  |  *  |  *  
+2.0  |     |  *  |  *  |  *  |  *
 
 
 ## Documentation
@@ -312,6 +312,11 @@ Context data:
 
 
 ## Change Log
+
+### 2.0.3
+
+* Add Python 3.7 to the support versions matrix due to change made in v2.0.1
+* Change `detox` to `tox --parallel`
 
 ### 2.0.2
 
