@@ -80,6 +80,18 @@ jobs:
       - image: circleci/python:3.6
         environment:
           TOXENV=py36-dj20
+  py37dj111:
+    <<: *common
+    docker:
+      - image: circleci/python:3.7
+        environment:
+          TOXENV=py37-dj111
+  py37dj20:
+    <<: *common
+    docker:
+      - image: circleci/python:3.7
+        environment:
+          TOXENV=py37-dj20
 
 workflows:
   version: 2
@@ -93,3 +105,5 @@ workflows:
       - py35dj20
       - py36dj111
       - py36dj20
+      - py37dj111
+      - py37dj20
