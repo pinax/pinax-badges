@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-VERSION = "2.0.2"
+VERSION = "2.0.3"
 LONG_DESCRIPTION = """
 .. image:: http://pinaxproject.com/pinax-design/patches/pinax-badges.svg
     :target: https://pypi.python.org/pypi/pinax-badges/
@@ -39,13 +39,13 @@ Pinax Badges
 Supported Django and Python Versions
 ------------------------------------
 
-+-----------------+-----+-----+-----+-----+
-| Django / Python | 2.7 | 3.4 | 3.5 | 3.6 |
-+=================+=====+=====+=====+=====+
-|  1.11           |  *  |  *  |  *  |  *  |
-+-----------------+-----+-----+-----+-----+
-|  2.0            |     |  *  |  *  |  *  |
-+-----------------+-----+-----+-----+-----+
++-----------------+-----+-----+-----+-----+-----+
+| Django / Python | 2.7 | 3.4 | 3.5 | 3.6 | 3.7 |
++=================+=====+=====+=====+=====+=====+
+|  1.11           |  *  |  *  |  *  |  *  |  *  |
++-----------------+-----+-----+-----+-----+-----+
+|  2.0            |     |  *  |  *  |  *  |  *  |
++-----------------+-----+-----+-----+-----+-----+
 """
 
 setup(
@@ -71,12 +71,13 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
-        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2',	
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
     install_requires=[
