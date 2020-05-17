@@ -1,7 +1,7 @@
 from .base import Badge
 
 
-class BadgeCache(object):
+class BadgeCache:
     """
     This is responsible for storing all badges that have been registered, as
     well as providing the pulic API for awarding badges.
