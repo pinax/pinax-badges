@@ -10,19 +10,19 @@ def abstract_property(name):
     return property(attr, attr)
 
 
-class BadgeAwarded(object):
+class BadgeAwarded:
     def __init__(self, level=None, user=None):
         self.level = level
         self.user = user
 
 
-class BadgeDetail(object):
+class BadgeDetail:
     def __init__(self, name=None, description=None):
         self.name = name
         self.description = description
 
 
-class Badge(object):
+class Badge:
     async_ = False
     multiple = abstract_property("multiple")
     levels = abstract_property("levels")
