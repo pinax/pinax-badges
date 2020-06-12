@@ -8,7 +8,7 @@ from .registry import badges
 
 
 def badge_list(request):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         user_badges = {
             (slug, level) for slug, level in
             BadgeAward.objects.filter(user=request.user).values_list("slug", "level")
