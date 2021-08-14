@@ -33,7 +33,32 @@ class PointsBadge(Badge):
             return BadgeAwarded(1)
 
 
+class AsyncPointsBadge(Badge):
+    slug = "points"
+    levels = [
+        "Bronze",
+        "Silver",
+        "Gold",
+    ]
+    events = [
+        "async_points_awarded",
+    ]
+    multiple = False
+    async_ = True
+
+    def award(self, **state):
+        user = state["user"]
+        points = user.stats.points
+        if points > 10000:
+            return BadgeAwarded(3)
+        elif points > 7500:
+            return BadgeAwarded(2)
+        elif points > 5000:
+            return BadgeAwarded(1)
+
+
 badges.register(PointsBadge)
+badges.register(AsyncPointsBadge)
 
 
 class BaseTestCase(TestCase):
@@ -112,3 +137,10 @@ class TasksTestCase(TestCase):
             import pinax.badges.tasks  # noqa
         except ImportError:
             self.fail("Importing pinax.badges.tasks without celery installed should not fail")
+
+    def test_async_badge_awarded(self):
+        u = User.objects.create_user("Lars Bak", "lars@hotspot.com", "x864lyfe")
+        PlayerStat.objects.create(user=u)
+        with self.settings(CELERY_TASK_ALWAYS_EAGER=True):
+            badges.possibly_award_badge("async_points_awarded", user=u)
+        self.assertEqual(u.badges_earned.count(), 0)

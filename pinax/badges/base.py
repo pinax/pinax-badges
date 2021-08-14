@@ -46,7 +46,7 @@ class Badge:
         if self.async_:
             from .tasks import AsyncBadgeAward
             state = self.freeze(**state)
-            AsyncBadgeAward.delay(self, state)
+            AsyncBadgeAward().delay((self, state), serializer="pickle")
             return
         self.actually_possibly_award(**state)
 
