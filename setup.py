@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-VERSION = "3.0.0"
+VERSION = "3.0.1"
 LONG_DESCRIPTION = """
 .. image:: http://pinaxproject.com/pinax-design/patches/pinax-badges.svg
     :target: https://pypi.python.org/pypi/pinax-badges/
